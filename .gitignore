@@ -1,0 +1,52 @@
+# Folders
+_BUILDS
+[Bb]in/
+obj/
+#Lib/
+ipch/
+
+Assets/TEMP/
+Assets/TEMP.meta
+_Publish/_BUILD/
+
+# SLN
+*.db
+*.sdf
+*.suo
+*.user
+*.opensdf
+*.pidb
+*.userprefs
+*.opendb
+.vs/
+.vsconfig
+.vscode
+.idea
+
+# System Files
+*.DS_Store
+*.cachefile
+
+# Unity files
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/_[Bb]uilds/
+/Assets/AssetStoreTools*
+/Logs/
+/UserSettings/
+/.utmp
+
+/*.sln
+/*.csproj
+*.tmp
+*.booproj
+*.svd
+*.apk
+*.unitypackage
+*.log
+*.blend1
+
+sysinfo.txt
