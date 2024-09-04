@@ -236,10 +236,10 @@ public class TestSockets : MonoBehaviour
 		{
 			var data = Encoding.ASCII.GetBytes(message);
 			MessageDataProcessor.PrefixMessageData(ref data);
-			if (data.Length >= 2)
+			if (data.Length >= sizeof(int) + 2)// message-prefix + the two ascii chars we will change
 			{
-				data[0] = (byte)('a' + i);// a, b, c, d, e
-				data[1] = (byte)'_';
+				data[sizeof(int)] = (byte)('a' + i);// a, b, c, d, e
+				data[sizeof(int) + 1] = (byte)'_';
 			}
 			sender.Send(data);
 		}
