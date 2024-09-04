@@ -1,0 +1,1 @@
+Used to check for bugs in Unity's C# socket APIs that don't exist in CoreCLR or Mono environments.
