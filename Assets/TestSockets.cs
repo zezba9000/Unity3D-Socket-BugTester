@@ -232,7 +232,6 @@ public class TestSockets : MonoBehaviour
 
 	private void SendMessage(INetworkDataSender sender, string message)
 	{
-		message = "111111111-222222222-333333333-444444444-555555555-666666666-";// HACK: override message to 60 bytes
 		for (int i = 0; i != 5; ++i)// burst send 5 packets all using a new buffer
 		{
 			var data = Encoding.ASCII.GetBytes(message);
