@@ -232,17 +232,9 @@ public class TestSockets : MonoBehaviour
 
 	private void SendMessage(INetworkDataSender sender, string message)
 	{
-		for (int i = 0; i != 5; ++i)// burst send 5 packets all using a new buffer
-		{
-			var data = Encoding.ASCII.GetBytes(message);
-			MessageDataProcessor.PrefixMessageData(ref data);
-			if (data.Length >= sizeof(int) + 2)// message-prefix + the two ascii chars we will change
-			{
-				data[sizeof(int)] = (byte)('a' + i);// a, b, c, d, e
-				data[sizeof(int) + 1] = (byte)'_';
-			}
-			sender.Send(data);
-		}
+		var data = Encoding.ASCII.GetBytes(message);
+		MessageDataProcessor.PrefixMessageData(ref data);
+		sender.Send(data);
 	}
 
 	private void OnDestroy()
