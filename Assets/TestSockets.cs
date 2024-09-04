@@ -232,6 +232,7 @@ public class TestSockets : MonoBehaviour
 
 	private void SendMessage(INetworkDataSender sender, string message)
 	{
+		message = "111111111-222222222-333333333-444444444-555555555-666666666-";// HACK: override message to 60 bytes
 		for (int i = 0; i != 5; ++i)// burst send 5 packets all using a new buffer
 		{
 			var data = Encoding.ASCII.GetBytes(message);
@@ -304,7 +305,7 @@ public class TestSockets : MonoBehaviour
 
 	private void TCPConnection_DataRecievedCallback(TCPSocketConnection connection, byte[] data, int size)
 	{
-		ConsoleWrite(string.Format("Data From:({0})", connection.address));
+		ConsoleWrite(string.Format("Data From:({0}) Size:{1}", connection.address, size));
 		messageProcessor.Process(data, 0, size);
 	}
 
@@ -330,7 +331,7 @@ public class TestSockets : MonoBehaviour
 
 	private void RUDPConnection_DataRecievedCallback(RUDPSocketConnection connection, byte[] data, int offset, int size)
 	{
-		ConsoleWrite(string.Format("Data From:({0})", connection.address));
+		ConsoleWrite(string.Format("Data From:({0}) Size:{1}", connection.address, size));
 		messageProcessor.Process(data, offset, size);
 	}
 
