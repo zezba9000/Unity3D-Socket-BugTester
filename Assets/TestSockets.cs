@@ -9,7 +9,6 @@ using Orbital.Networking;
 using Orbital.Networking.Sockets;
 using Orbital.Networking.DataProcessors;
 using System.Text;
-using UnityEditor.VersionControl;
 
 /// <summary>
 /// NOTE: code here is ported from my console test app to work the same way in Unity3D to its 1 to 1 with other runtimes
@@ -206,18 +205,14 @@ public class TestSockets : MonoBehaviour
 						{
 							foreach (var connection in tcpSocketServer.connections)
 							{
-								var data = Encoding.ASCII.GetBytes(input);
-								MessageDataProcessor.PrefixMessageData(ref data);
-								connection.Send(data);
+								SendMessage(connection, input);
 							}
 						}
 						else
 						{
 							foreach (var connection in tcpSocketClient.connections)
 							{
-								var data = Encoding.ASCII.GetBytes(input);
-								MessageDataProcessor.PrefixMessageData(ref data);
-								connection.Send(data);
+								SendMessage(connection, input);
 							}
 						}
 					}
@@ -225,15 +220,28 @@ public class TestSockets : MonoBehaviour
 					{
 						foreach (var connection in rudpSocket.connections)
 						{
-							var data = Encoding.ASCII.GetBytes(input);
-							MessageDataProcessor.PrefixMessageData(ref data);
-							connection.Send(data);
+							SendMessage(connection, input);
 						}
 					}
 					break;
 			}
 
 			break;
+		}
+	}
+
+	private void SendMessage(INetworkDataSender sender, string message)
+	{
+		for (int i = 0; i != 5; ++i)// burst send 5 packets all using a new buffer
+		{
+			var data = Encoding.ASCII.GetBytes(message);
+			MessageDataProcessor.PrefixMessageData(ref data);
+			if (data.Length >= 2)
+			{
+				data[0] = (byte)('a' + i);// a, b, c, d, e
+				data[1] = (byte)'_';
+			}
+			sender.Send(data);
 		}
 	}
 
